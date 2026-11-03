@@ -17,8 +17,8 @@ Taint-правило Semgrep для поиска инъекции команд �
 ## Запуск
 
 ```bash
-semgrep --validate --config .
-semgrep --test .
+semgrep --validate --config flask-command-injection-shell.yaml
+semgrep --test --config flask-command-injection-shell.yaml flask-command-injection-shell.py
 semgrep --config flask-command-injection-shell.yaml --metrics=off путь/к/проекту
 ```
 
@@ -29,8 +29,11 @@ semgrep --config flask-command-injection-shell.yaml --metrics=off путь/к/п
 - `# ruleid:` отмечает строку, где правило должно сработать.
 - `# ok:` отмечает строку, где оно срабатывать не должно.
 
+Те же проверки запускаются в GitHub Actions при каждом пуше и пул-реквесте.
+
 ## Ограничения
 
 - Semgrep CE отслеживает данные только внутри одной функции.
 - Источником считается только `flask.request`.
 - Правило не находит запуск оболочки через список аргументов, например `subprocess.run(["sh", "-c", command])`.
+
